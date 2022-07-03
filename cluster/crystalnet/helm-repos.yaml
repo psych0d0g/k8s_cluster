@@ -1,0 +1,26 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: k8s-at-home
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://k8s-at-home.com/charts/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: jitsi
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://jitsi-contrib.github.io/jitsi-helm/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://charts.bitnami.com/bitnami
