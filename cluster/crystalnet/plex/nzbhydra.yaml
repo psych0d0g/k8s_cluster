@@ -37,5 +37,6 @@ spec:
     persistence:
       config:
         enabled: true
+        retain: true
         accessMode: ReadWriteOnce
         size: 5Gi
