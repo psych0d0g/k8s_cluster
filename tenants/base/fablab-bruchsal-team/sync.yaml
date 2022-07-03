@@ -6,6 +6,7 @@ metadata:
 spec:
   interval: 1m
   url: ssh://git@github.com/FabLab-Bruchsal-e-V/k8s_deployments.git
+  path: /
   secretRef:
     name: fablab-bruchsal-git
   ref:
