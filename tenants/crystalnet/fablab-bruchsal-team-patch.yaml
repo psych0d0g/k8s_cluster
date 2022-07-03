@@ -4,4 +4,4 @@ metadata:
   name: fablab-bruchsal-team
   namespace: fablab-bruchsal
 spec:
-  path: ./crystalnet
+  path: ./fablab-bruchsal
