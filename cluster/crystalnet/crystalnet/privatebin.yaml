@@ -4,7 +4,7 @@ metadata:
   name: privatebin
   namespace: crystalnet
 spec:
-  interval: 6m
+  interval: 1m
   chart:
     spec:
       chart: privatebin
