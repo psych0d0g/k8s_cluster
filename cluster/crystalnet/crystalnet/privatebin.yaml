@@ -44,6 +44,7 @@ spec:
         name: "CrystalPaste"
     persistence:
       data:
-        enabled: false
+        enabled: true
+        size: 1Gi
         accessMode: ReadWriteOnce
         mountPath: /srv/data
