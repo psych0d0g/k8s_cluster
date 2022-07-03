@@ -36,7 +36,12 @@ spec:
           secretName: paste.crystalnet.org
     postgresql:
       enabled: true
+      persistence:
+        enabled: true
     config:
       main:
         name: "CrystalPaste"
-
+    persistence:
+      data:
+        enabled: true
+        mountPath: /srv/data
