@@ -37,6 +37,7 @@ spec:
     postgresql:
       enabled: true
       persistence:
+        accessMode: ReadWriteOnce
         enabled: true
     config:
       main:
@@ -44,4 +45,5 @@ spec:
     persistence:
       data:
         enabled: true
+        accessMode: ReadWriteOnce
         mountPath: /srv/data
