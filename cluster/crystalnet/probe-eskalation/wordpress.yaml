@@ -1,0 +1,93 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: wordpress
+  namespace: probe-eskalation
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: wordpress
+      version: 15.0.12
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 1m
+      valuesFiles:
+        - values.yaml
+  values:
+    image:
+      registry: harbor.crystalnet.org/dockerhub-proxy
+      repository: bitnami/wordpress
+      tag: 6.0.1-debian-11-r3
+      pullPolicy: IfNotPresent
+    wordpressUsername: Cronix
+    existingSecret: "wordpress-passwords"
+    wordpressEmail: h@xx0r.eu
+    wordpressFirstName: Lukas
+    wordpressLastName: Wingerberg
+    wordpressBlogName: Probe Eskalation
+    wordpressTablePrefix: wp_
+    wordpressScheme: https
+    wordpressSkipInstall: false
+    wordpressExtraConfigContent: |
+      @ini_set( 'post_max_size', '128M');
+      @ini_set( 'memory_limit', '256M' );
+    wordpressConfiguration: ""
+    existingWordPressConfigurationSecret: ""
+    wordpressConfigureCache: true
+    wordpressAutoUpdateLevel: minor
+    wordpressPlugins: none
+    serviceAccountName: default
+    hostAliases:
+      ## Required for apache-exporter to work
+      - ip: "127.0.0.1"
+        hostnames:
+          - "probe-eskalation.eu"
+    resources:
+      limits: {}
+      requests:
+        memory: 512Mi
+        cpu: 300m
+    service:
+      type: ClusterIP
+    ingress:
+      enabled: true
+      hostname: probe-eskalation.eu
+      path: /
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls: true
+      extraHosts: []
+      #    - name: www.fablab-bruchsal.de
+      #      path: /
+    volumePermissions:
+      enabled: false
+      image:
+        registry: docker.io
+        repository: bitnami/bitnami-shell
+        tag: 11-debian-11-r16
+        pullPolicy: IfNotPresent
+        pullSecrets: []
+      resources:
+        limits: {}
+        requests: {}
+      securityContext:
+        runAsUser: 0
+    mariadb:
+      enabled: false
+    externalDatabase:
+      host: current-mariadb.mariadb
+      port: 3306
+      user: probe_eskalation
+      database: probeeskalation_wordpress
+      existingSecret: "wordpress-passwords"
+    memcached:
+      enabled: true
+      service:
+        port: 11211
+    externalCache:
+      host: localhost
+      port: 11211
